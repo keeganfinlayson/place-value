@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Place Value Studio — Asset Prototype v0.1</title>
+<style>
+:root{--ink:#152c49;--sub:#58708b;--line:#d8e5f2;--blue:#1473d9;--light:#f7fbff;--white:#fff;--radius:18px}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:white;color:var(--ink);font:15px/1.4 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}button,select{font:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #2795f3;outline-offset:2px}header{border-bottom:1px solid var(--line);padding:19px clamp(16px,3vw,44px);display:flex;align-items:center;justify-content:space-between;gap:20px}header h1{margin:0;font-size:clamp(23px,3vw,33px);letter-spacing:-.04em;line-height:1.12}header p{color:var(--sub);font-size:13px;margin:5px 0 0}.chip{font-size:12px;letter-spacing:.05em;font-weight:700;border-radius:20px;background:#eaf4ff;color:#165b9e;padding:7px 13px;white-space:nowrap}main{max-width:1360px;margin:0 auto;padding:22px clamp(14px,2vw,32px) 56px}.stage{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(265px,.82fr);gap:16px}.panel{border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 8px 27px rgba(31,80,139,.05);overflow:hidden;background:white}.panel-heading{padding:17px 18px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.eyebrow{text-transform:uppercase;letter-spacing:.12em;color:#587897;font-size:11px;font-weight:800}.panel-heading h2{font-size:19px;letter-spacing:-.03em;margin:2px 0 0}.viewer{padding:8px 13px 4px;min-height:376px}.viewer canvas{display:block;width:100%;height:406px;touch-action:pan-y}.tools{border-top:1px solid var(--line);padding:13px 17px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.pills{display:flex;gap:5px;background:#f0f6fc;padding:5px;border-radius:12px}.pills button{border:none;border-radius:9px;background:transparent;color:#526d87;padding:7px 11px;font-weight:650;font-size:13px}.pills button[aria-pressed="true"]{background:#fff;box-shadow:0 1px 5px #bccfe380;color:#0c59a9}.tiny{font-size:12px;color:var(--sub)}.toolset{display:flex;align-items:center;gap:9px}.iconbtn{border:1px solid var(--line);background:#fff;color:#244f7d;border-radius:10px;padding:7px 11px;font-weight:800}.slider{accent-color:#1473d9;width:95px}.info{padding:20px;display:flex;flex-direction:column;gap:15px}.info-top{display:flex;align-items:center;gap:10px}.color-dot{width:14px;height:14px;border-radius:50%;background:#27a5df;box-shadow:inset 0 2px 4px #ffffff8c,0 0 0 2px #ffffff,0 0 0 3px #cedeed}.info h2{font-size:26px;line-height:1.15;margin:0;letter-spacing:-.035em}.info .big-value{font-size:clamp(25px,3vw,35px);line-height:1.1;font-weight:850;letter-spacing:-.025em;color:#113b72;margin-top:3px}.desc{color:#4c6680;line-height:1.5;margin:0}.mathbox{background:#f1f7fe;border:1px solid #dceafa;border-radius:13px;padding:13px 15px;text-align:center}.mathbox .math{font-size:21px;font-weight:850;color:#144f94;font-variant-numeric:tabular-nums}.mathbox .sub{font-size:12px;color:#52718e;margin-top:3px}.facts{display:grid;gap:0}.fact{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid #e6edf5;padding:10px 0;font-size:13px}.fact:last-child{border-bottom:0}.fact span{color:#667f95}.fact strong{text-align:right;font-weight:700;color:#223d59}.note{padding:10px 12px;border-left:3px solid #2196e8;background:#f7fbff;border-radius:0 9px 9px 0;font-size:13px;color:#506981;line-height:1.5}.gallery-head{margin:30px 0 12px;display:flex;justify-content:space-between;gap:16px;align-items:end;flex-wrap:wrap}.gallery-head h2{margin:0;font-size:21px;letter-spacing:-.03em}.gallery-head p{margin:2px 0 0;color:var(--sub);font-size:13px}.gallery{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}.asset-card{border:1px solid var(--line);border-radius:15px;background:#fff;overflow:hidden;padding:12px;display:flex;flex-direction:column;gap:5px;min-width:0;text-align:left;transition:border-color .12s,box-shadow .12s,transform .12s}.asset-card:hover{border-color:#8bbdeb;box-shadow:0 6px 18px #d2e5f7a1;transform:translateY(-1px)}.asset-card[aria-pressed="true"]{border:2px solid #1480e4;padding:11px;box-shadow:0 0 0 3px #e3f2ff}.asset-card canvas{width:100%;height:126px;display:block}.asset-card .name{font-size:13px;font-weight:760;color:#1a3b62;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.asset-card .number{font-size:17px;font-weight:850;letter-spacing:-.02em;color:#102f53;font-variant-numeric:tabular-nums}.asset-card .shape{font-size:11px;color:#6b839b}.footer{font-size:12px;color:#70879e;margin-top:17px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}small.kbd{display:inline-block;border:1px solid #cadaeb;border-radius:5px;padding:0 5px;color:#345d86}.stamp{background:#e9f7f2;color:#147c5d;border-radius:7px;font-size:11px;padding:4px 7px;font-weight:750}#error{display:none;background:#ffeae9;border:1px solid #f2c6c3;padding:10px;color:#a52c2c;border-radius:10px;margin:14px 0}@media(max-width:900px){.stage{grid-template-columns:1fr}.info{display:grid;grid-template-columns:1fr 1fr;gap:14px}.info-top,.info h2,.info .big-value,.desc{grid-column:1/-1}.gallery{grid-template-columns:repeat(3,minmax(0,1fr))}.viewer canvas{height:340px}}@media(max-width:540px){.viewer canvas{height:290px}.info{display:flex}.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.asset-card canvas{height:106px}.pills button{padding:6px 8px;font-size:12px}.tools{justify-content:center}.panel-heading h2{font-size:17px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><div><h1>Place Value Studio</h1><p>Precision blocks · powers of ten · geometric asset prototype</p></div><span class="chip">BUILD 0.1</span></header>
+<main>
+  <div class="stage">
+    <section class="panel" aria-label="Place value asset viewer">
+      <div class="panel-heading"><div><div class="eyebrow">Inspect one block</div><h2 id="view-name">Ten Millions · rod</h2></div><span class="stamp">PARALLEL PROJECTION</span></div>
+      <div class="viewer"><canvas id="mainCanvas" role="img" aria-label="Geometrically exact place value block with nested subdivisions"></canvas></div>
+      <div class="tools">
+        <div class="pills" aria-label="View mode"><button type="button" data-view="block" aria-pressed="true">3D block</button><button type="button" data-view="face" aria-pressed="false">Front-face texture</button></div>
+        <div class="toolset"><span class="tiny">Detail</span><div class="pills" aria-label="Subdivision detail"><button type="button" data-detail="primary" aria-pressed="false">Main</button><button type="button" data-detail="nested" aria-pressed="true">Nested</button></div></div>
+        <div class="toolset"><span class="tiny" for="angle">Depth</span><input aria-label="Parallel projection depth" class="slider" id="angle" type="range" min="20" max="70" value="52"><button type="button" class="iconbtn" id="downloadPng" title="Save the selected block as a PNG">Save PNG</button></div>
+      </div>
+    </section>
+    <aside class="panel info" aria-live="polite">
+      <div class="info-top"><span class="color-dot" id="colorDot"></span><span class="eyebrow">Selected place value</span></div>
+      <h2 id="infoName">Ten Millions</h2><div class="big-value" id="infoNumber">10,000,000</div>
+      <p class="desc" id="description">A rod containing ten distinct million-cubes.</p>
+      <div class="mathbox"><div class="math" id="equation">10 × 1,000,000</div><div class="sub">Ten of the previous place value</div></div>
+      <div class="facts"><div class="fact"><span>Geometric shape</span><strong id="factShape">Rod</strong></div><div class="fact"><span>Block dimensions</span><strong id="factDims">1 × 10 × 1</strong></div><div class="fact"><span>Each major cell</span><strong id="factCell">One million cube</strong></div><div class="fact"><span>Nested structure</span><strong id="factNested">10 × 10 per visible face</strong></div></div>
+      <div class="note" id="note">Ten million-cubes are distinguishable by thick seams. Each cube shows its own finer 10 × 10 surface grid.</div>
+    </aside>
+  </div>
+  <div class="gallery-head"><div><h2>All ten place-value assets</h2><p>Select a block to inspect its dimensions and its constituent cubes.</p></div><span class="tiny">1 → 1,000,000,000</span></div>
+  <section class="gallery" id="gallery" aria-label="Ten place-value blocks"></section>
+  <div id="error"></div>
+  <div class="footer"><span>One box primitive · four dimension sets · procedural metallic surface grids · no external libraries</span><span>Geometry verification: 10 subdivisions on each repeated axis</span></div>
+</main>
+<script>
+(function(){'use strict';
+const SHAPES=['Single','Rod','Flat','Cube'];
+const DATA=[
+ {name:'Ones',hex:'#2ed95a'}, {name:'Tens',hex:'#f1bb14'}, {name:'Hundreds',hex:'#b44ce4'},
+ {name:'Thousands',hex:'#1cb5e9'}, {name:'Ten Thousands',hex:'#177bdc'}, {name:'Hundred Thousands',hex:'#ee911c'},
+ {name:'Millions',hex:'#c445e9'}, {name:'Ten Millions',hex:'#ed329d'}, {name:'Hundred Millions',hex:'#276ee4'}, {name:'Billions',hex:'#20cccd'}
+].map((d,e)=>({...d,e,value:10**e,shape:e===0?'Single':SHAPES[(e-1)%3+1],dims:e===0?[1,1,1]:e%3===1?[1,10,1]:e%3===2?[10,10,1]:[10,10,10]}));
+// Block dimensions are measured in *the repeating constituent unit*. A 10-million rod is
+// 1 x 10 x 1 MILLION-cubes, not 10 visually unrelated little ones.
+const $=id=>document.getElementById(id),main=$('mainCanvas'),gallery=$('gallery');
+let chosen=7,detail='nested',view='block',depth=52,ctxMain;
+const tintCache=new Map();
+function mix(a,b,t){return a.map((v,i)=>Math.round(v*(1-t)+b[i]*t))}
+function rgb(hex){const n=parseInt(hex.slice(1),16);return[(n>>16)&255,(n>>8)&255,n&255]}
+function cstr(a,alpha=1){return 'rgba('+a.join(',')+','+alpha+')'}
+function composite(hex,shade,bright){let base=rgb(hex);base=mix(base,[0,0,0],shade);return cstr(mix(base,[255,255,255],bright))}
+function faceTexture(e,cols,rows,side,detailMode){
+ const key=[e,cols,rows,side,detailMode].join(':');if(tintCache.has(key))return tintCache.get(key);
+ const sc=76,can=document.createElement('canvas');can.width=cols*sc;can.height=rows*sc;
+ const g=can.getContext('2d',{alpha:false});let hex=DATA[e].hex,base=rgb(hex);
+ // Each face is a true 2D texture of an exact 1x1 or 10x10 subdivision grid.
+ let sh=side==='top'?-.055:side==='right'?.13:0;
+ g.fillStyle=composite(hex,.32+sh,0);g.fillRect(0,0,can.width,can.height);
+ for(let r=0;r<rows;r++)for(let col=0;col<cols;col++){
+   const x=col*sc,y=r*sc,offset=1.8,border=.8;
+   const grad=g.createLinearGradient(x,y,x+sc,y+sc);
+   grad.addColorStop(0,composite(hex,.04+sh,.48));
+   grad.addColorStop(.23,composite(hex,0,.22));
+   grad.addColorStop(.55,composite(hex,.02+sh,.04));
+   grad.addColorStop(1,composite(hex,.30+sh,0));
+   g.fillStyle=grad;g.fillRect(x+offset,y+offset,sc-2*offset,sc-2*offset);
+   g.fillStyle='rgba(255,255,255,.55)';g.fillRect(x+3.5,y+2.8,sc-7,2.1);
+   g.fillRect(x+2.9,y+4,1.7,sc-9);
+   g.fillStyle='rgba(3,19,50,.27)';g.fillRect(x+sc-4.8,y+4,1.7,sc-7.8);g.fillRect(x+4,y+sc-4.6,sc-7.4,1.8);
+   if(e>=4 && detailMode==='nested'){
+      // The major cells are 1,000-blocks for e=4..6, million-blocks for e=7..9.
+      // Exactly TEN minor divisions in each visible surface direction (9 interior lines).
+      let px=x+7.5,py=y+7.5,w=sc-15,h=sc-15,step=w/10;
+      g.fillStyle='rgba(255,255,255,.095)';g.fillRect(px,py,w,h);
+      g.lineWidth=.68;g.strokeStyle='rgba(6,27,67,.52)';g.beginPath();
+      for(let m=1;m<10;m++){
+       let t=step*m;
+       g.moveTo(px+t,py);g.lineTo(px+t,py+h);
+       g.moveTo(px,py+t);g.lineTo(px+w,py+t);
+      }g.stroke();
+      g.strokeStyle='rgba(0,15,48,.30)';g.lineWidth=.7;g.strokeRect(px,py,w,h);
+      // A subdued stipple within the secondary cells hints at deeper nesting
+      // for million-units without implying falsely sized primary blocks.
+      if(e>=7){
+       g.fillStyle='rgba(13,24,67,.29)';
+       for(let j=0;j<10;j++)for(let k=0;k<10;k++)g.fillRect(px+(k+.52)*step,py+(j+.50)*step,.65,.65);
+      }
+   }
+ }
+ // Outer face perimeter is geometrically separate from the grid's own macro seams.
+ g.strokeStyle='rgba(9,26,58,.90)';g.lineWidth=2.7;g.strokeRect(1.6,1.6,can.width-3.2,can.height-3.2);
+ tintCache.set(key,can);return can;
+}
+function prepCanvas(canvas){const rect=canvas.getBoundingClientRect(),ratio=Math.min(2,window.devicePixelRatio||1);
+ const width=rect.width||parseFloat(canvas.style.width)||canvas.width||160;
+ const height=rect.height||parseFloat(canvas.style.height)||canvas.height||100;
+ const w=Math.max(160,Math.round(width*ratio)),h=Math.max(100,Math.round(height*ratio));
+ if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}const g=canvas.getContext('2d');g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,w,h);return {g,w,h,ratio};}
+function facePolygon(g,A,B,D){const C=[B[0]+D[0]-A[0],B[1]+D[1]-A[1]];g.beginPath();g.moveTo(...A);g.lineTo(...B);g.lineTo(...C);g.lineTo(...D);g.closePath();}
+function paintFace(g,texture,A,B,D,edgeColor){
+ g.save();facePolygon(g,A,B,D);g.clip();
+ const tw=texture.width,th=texture.height;
+ // A,B,D are three corners of one parallelogram; this affine mapping deliberately
+ // has no vanishing point. Parallel edges stay parallel on every object.
+ g.setTransform((B[0]-A[0])/tw,(B[1]-A[1])/tw,(D[0]-A[0])/th,(D[1]-A[1])/th,A[0],A[1]);
+ g.drawImage(texture,0,0);g.restore();
+ g.save();facePolygon(g,A,B,D);g.strokeStyle=edgeColor;g.lineWidth=1.7;g.lineJoin='round';g.stroke();g.restore();
+}
+function renderBlock(canvas,e,large=false){
+ const {g,w,h}=prepCanvas(canvas),obj=DATA[e],dims=obj.dims;let [nx,ny,nz]=dims;
+ let dx=depth/100,dy=depth*.0075;
+ // Fixed orthographic/oblique parallel projection; no convergence on distant edges.
+ const unit=Math.min((w-(large?96:34))/(nx+dx*nz),(h-(large?70:22))/(ny+dy*nz));
+ let s=Math.max(1,unit*(large?.96:.93)),pw=s*(nx+dx*nz),ph=s*(ny+dy*nz);
+ const ox=(w-pw)/2,oy=(h+ph)/2+((large?0:3));
+ const P=(x,y,z)=>[ox+s*(x+dx*z),oy-s*(y+dy*z)];
+ // Ground reflection is intentionally subtle: there is no scene/background geometry.
+ if(large){
+ g.save();g.filter='blur('+Math.max(9,s*.43)+'px)';g.fillStyle='rgba(26,48,81,.13)';
+ g.beginPath();g.ellipse(ox+pw*.50,oy+2,pw*.37,Math.min(13,ph*.07),0,0,Math.PI*2);g.fill();g.restore();
+ }
+ const dark='rgba(13,26,52,.92)';
+ // Right face: texture horizontal direction = z, vertical direction = y.
+ paintFace(g,faceTexture(e,nz,ny,'right',detail),P(nx,ny,nz),P(nx,ny,0),P(nx,0,nz),dark);
+ // Top face: horizontal direction = x, vertical direction = z.
+ paintFace(g,faceTexture(e,nx,nz,'top',detail),P(0,ny,nz),P(nx,ny,nz),P(0,ny,0),dark);
+ // Front face: horizontal direction = x, vertical direction = y.
+ paintFace(g,faceTexture(e,nx,ny,'front',detail),P(0,ny,0),P(nx,ny,0),P(0,0,0),dark);
+ // A magnified constituent cube is especially important for ten-thousand and
+ // ten-million RODS: a tall 10:1 block otherwise makes its internal grid tiny.
+ if(large && e>=4 && e%3===1 && view==='block'){
+   const r=Math.min(132,w*.18,h*.32), cx=w*.68, bottom=h*.61;
+   const q=(x,y,z)=>[cx+r*(x+dx*z),bottom-r*(y+dy*z)];
+   const from=P(1,ny-1.15,0),to=[cx-10,bottom-r*(1+dy)];
+   g.save();g.strokeStyle='rgba(62,114,164,.7)';g.lineWidth=1.7;g.setLineDash([5,5]);
+   g.beginPath();g.moveTo(...from);g.lineTo(to[0],from[1]);g.lineTo(...to);g.stroke();g.restore();
+   // This zoomed object is ONE major cell, retaining its true cubic proportions.
+   paintFace(g,faceTexture(e,1,1,'right',detail),q(1,1,1),q(1,1,0),q(1,0,1),dark);
+   paintFace(g,faceTexture(e,1,1,'top',detail),q(0,1,1),q(1,1,1),q(0,1,0),dark);
+   paintFace(g,faceTexture(e,1,1,'front',detail),q(0,1,0),q(1,1,0),q(0,0,0),dark);
+   g.save();g.textAlign='center';
+   const tx=cx+r*(1+dx)*.5,ty=bottom+25;
+   g.fillStyle='#17406a';g.font='700 14px system-ui, sans-serif';
+   g.fillText(e>=7?'ONE MILLION-CUBE':'ONE THOUSAND-CUBE',tx,ty);
+   g.fillStyle='#5b7792';g.font='12px system-ui, sans-serif';
+   g.fillText(e>=7?'10 × 10 × 10 thousand-cubes':'10 × 10 × 10 ones',tx,ty+21);g.restore();
+ }
+}
+function renderFace(canvas,e){
+ const {g,w,h}=prepCanvas(canvas),[nx,ny]=DATA[e].dims;
+ const texture=faceTexture(e,nx,ny,'front',detail),scale=Math.min((w-62)/texture.width,(h-51)/texture.height);
+ const x=(w-texture.width*scale)/2,y=(h-texture.height*scale)/2;
+ g.drawImage(texture,x,y,texture.width*scale,texture.height*scale);
+ g.strokeStyle='rgba(17,40,72,.73)';g.lineWidth=2;g.strokeRect(x,y,texture.width*scale,texture.height*scale);
+}
+function drawMain(){if(view==='face')renderFace(main,chosen);else renderBlock(main,chosen,true)}
+function drawCards(){gallery.querySelectorAll('canvas').forEach(can=>renderBlock(can,+can.dataset.exp));}
+function format(n){return n.toLocaleString('en-US')}
+function cellValue(exp){return exp>=7?1_000_000:exp>=4?1_000:1;}
+function cellName(exp){return exp>=7?'million-cube':exp>=4?'thousand-cube':'one-cube'}
+function descFor(d){if(d.e===0)return 'One individual cube, the basic unit of the place-value system.';
+ if(d.e%3===1)return `A rod of 10 ${cellName(d.e).replace('-cube','-cubes')}, stacked in a line.`;
+ if(d.e%3===2)return `A flat of 100 ${cellName(d.e).replace('-cube','-cubes')}, arranged as 10 rows of 10.`;
+ return `A cube of 1,000 ${cellName(d.e).replace('-cube','-cubes')}, arranged 10 × 10 × 10.`;}
+function updateInfo(){let d=DATA[chosen],value=d.value;
+ $('infoName').textContent=d.name;$('infoNumber').textContent=format(value);$('view-name').textContent=d.name+' · '+d.shape.toLowerCase();
+ $('description').textContent=descFor(d);$('equation').textContent=chosen===0?'1 unit':`10 × ${format(value/10)}`;
+ $('factShape').textContent=d.shape;$('factDims').textContent=d.dims.join(' × ');
+ $('factCell').textContent=chosen===0?'One unit':`${format(cellValue(chosen))} (${cellName(chosen)})`;
+ $('factNested').textContent=chosen>=4?'10 × 10 grid on each major cell':chosen===0?'Single cube':'Exact 10-division primary grid';
+ const unit=cellValue(chosen);
+ $('note').textContent=chosen>=7?`Each of the ${chosen%3===1?10:chosen%3===2?100:1000} primary blocks represents ${format(unit)}. The finer 10 × 10 markings reveal the thousand-cubes within each million-cube.`:
+ chosen>=4?`The thick seams separate ${format(unit)}-blocks. Each major block contains a fine 10 × 10 grid on its visible faces.`:
+ `Every line is generated from an exact integer subdivision. Adjacent faces use the same dimensions and parallel projection.`;
+ $('colorDot').style.background=d.hex;
+ gallery.querySelectorAll('button[data-exp]').forEach(el=>{el.setAttribute('aria-pressed',Number(el.dataset.exp)===chosen?'true':'false')});
+ drawMain();}
+function createGallery(){
+ for(let e=9;e>=0;e--){let d=DATA[e],button=document.createElement('button');button.type='button';button.className='asset-card';button.dataset.exp=e;button.setAttribute('aria-label',d.name+' '+format(d.value)+' '+d.shape);button.setAttribute('aria-pressed',e===chosen?'true':'false');
+ const canvas=document.createElement('canvas');canvas.dataset.exp=e;
+ const name=document.createElement('span');name.className='name';name.textContent=d.name;
+ const number=document.createElement('strong');number.className='number';number.textContent=format(d.value);
+ const shape=document.createElement('span');shape.className='shape';shape.textContent=d.shape+' · '+d.dims.join(' × ');
+ button.append(canvas,name,number,shape);gallery.append(button);button.addEventListener('click',()=>{chosen=e;updateInfo();window.scrollTo({top:0,behavior:'smooth'});});
+ }
+}
+let resizePending=false;
+function refresh(){resizePending=false;drawMain();drawCards()}
+const observer=new ResizeObserver(()=>{if(!resizePending){resizePending=true;requestAnimationFrame(refresh)}});
+createGallery();observer.observe(main);gallery.querySelectorAll('canvas').forEach(c=>observer.observe(c));
+for(const b of document.querySelectorAll('[data-view]'))b.addEventListener('click',()=>{view=b.dataset.view;document.querySelectorAll('[data-view]').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));drawMain()});
+for(const b of document.querySelectorAll('[data-detail]'))b.addEventListener('click',()=>{detail=b.dataset.detail;document.querySelectorAll('[data-detail]').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));drawMain();drawCards()});
+$('angle').addEventListener('input',e=>{depth=Number(e.target.value);drawMain();drawCards()});
+$('downloadPng').addEventListener('click',()=>{
+ // Export the selected block (not the whole page) at 2x natural resolution.
+ const exportCanvas=document.createElement('canvas');exportCanvas.width=1400;exportCanvas.height=1100;
+ exportCanvas.style.width='700px';exportCanvas.style.height='550px';
+ if(view==='face')renderFace(exportCanvas,chosen);else renderBlock(exportCanvas,chosen,true);
+ exportCanvas.toBlob(blob=>{if(!blob){$('error').style.display='block';$('error').textContent='PNG export was not supported by this browser.';return;}
+ const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='place-value-'+DATA[chosen].value+'.png';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500);
+ },'image/png');
+});
+updateInfo();requestAnimationFrame(refresh);
+})();
+</script>
+</body></html>
