@@ -2,208 +2,530 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Place Value Studio — Asset Prototype v0.1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<title>Place Value Builder · v0.16</title>
 <style>
-:root{--ink:#152c49;--sub:#58708b;--line:#d8e5f2;--blue:#1473d9;--light:#f7fbff;--white:#fff;--radius:18px}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:white;color:var(--ink);font:15px/1.4 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}button,select{font:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #2795f3;outline-offset:2px}header{border-bottom:1px solid var(--line);padding:19px clamp(16px,3vw,44px);display:flex;align-items:center;justify-content:space-between;gap:20px}header h1{margin:0;font-size:clamp(23px,3vw,33px);letter-spacing:-.04em;line-height:1.12}header p{color:var(--sub);font-size:13px;margin:5px 0 0}.chip{font-size:12px;letter-spacing:.05em;font-weight:700;border-radius:20px;background:#eaf4ff;color:#165b9e;padding:7px 13px;white-space:nowrap}main{max-width:1360px;margin:0 auto;padding:22px clamp(14px,2vw,32px) 56px}.stage{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(265px,.82fr);gap:16px}.panel{border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 8px 27px rgba(31,80,139,.05);overflow:hidden;background:white}.panel-heading{padding:17px 18px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.eyebrow{text-transform:uppercase;letter-spacing:.12em;color:#587897;font-size:11px;font-weight:800}.panel-heading h2{font-size:19px;letter-spacing:-.03em;margin:2px 0 0}.viewer{padding:8px 13px 4px;min-height:376px}.viewer canvas{display:block;width:100%;height:406px;touch-action:pan-y}.tools{border-top:1px solid var(--line);padding:13px 17px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.pills{display:flex;gap:5px;background:#f0f6fc;padding:5px;border-radius:12px}.pills button{border:none;border-radius:9px;background:transparent;color:#526d87;padding:7px 11px;font-weight:650;font-size:13px}.pills button[aria-pressed="true"]{background:#fff;box-shadow:0 1px 5px #bccfe380;color:#0c59a9}.tiny{font-size:12px;color:var(--sub)}.toolset{display:flex;align-items:center;gap:9px}.iconbtn{border:1px solid var(--line);background:#fff;color:#244f7d;border-radius:10px;padding:7px 11px;font-weight:800}.slider{accent-color:#1473d9;width:95px}.info{padding:20px;display:flex;flex-direction:column;gap:15px}.info-top{display:flex;align-items:center;gap:10px}.color-dot{width:14px;height:14px;border-radius:50%;background:#27a5df;box-shadow:inset 0 2px 4px #ffffff8c,0 0 0 2px #ffffff,0 0 0 3px #cedeed}.info h2{font-size:26px;line-height:1.15;margin:0;letter-spacing:-.035em}.info .big-value{font-size:clamp(25px,3vw,35px);line-height:1.1;font-weight:850;letter-spacing:-.025em;color:#113b72;margin-top:3px}.desc{color:#4c6680;line-height:1.5;margin:0}.mathbox{background:#f1f7fe;border:1px solid #dceafa;border-radius:13px;padding:13px 15px;text-align:center}.mathbox .math{font-size:21px;font-weight:850;color:#144f94;font-variant-numeric:tabular-nums}.mathbox .sub{font-size:12px;color:#52718e;margin-top:3px}.facts{display:grid;gap:0}.fact{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid #e6edf5;padding:10px 0;font-size:13px}.fact:last-child{border-bottom:0}.fact span{color:#667f95}.fact strong{text-align:right;font-weight:700;color:#223d59}.note{padding:10px 12px;border-left:3px solid #2196e8;background:#f7fbff;border-radius:0 9px 9px 0;font-size:13px;color:#506981;line-height:1.5}.gallery-head{margin:30px 0 12px;display:flex;justify-content:space-between;gap:16px;align-items:end;flex-wrap:wrap}.gallery-head h2{margin:0;font-size:21px;letter-spacing:-.03em}.gallery-head p{margin:2px 0 0;color:var(--sub);font-size:13px}.gallery{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}.asset-card{border:1px solid var(--line);border-radius:15px;background:#fff;overflow:hidden;padding:12px;display:flex;flex-direction:column;gap:5px;min-width:0;text-align:left;transition:border-color .12s,box-shadow .12s,transform .12s}.asset-card:hover{border-color:#8bbdeb;box-shadow:0 6px 18px #d2e5f7a1;transform:translateY(-1px)}.asset-card[aria-pressed="true"]{border:2px solid #1480e4;padding:11px;box-shadow:0 0 0 3px #e3f2ff}.asset-card canvas{width:100%;height:126px;display:block}.asset-card .name{font-size:13px;font-weight:760;color:#1a3b62;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.asset-card .number{font-size:17px;font-weight:850;letter-spacing:-.02em;color:#102f53;font-variant-numeric:tabular-nums}.asset-card .shape{font-size:11px;color:#6b839b}.footer{font-size:12px;color:#70879e;margin-top:17px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}small.kbd{display:inline-block;border:1px solid #cadaeb;border-radius:5px;padding:0 5px;color:#345d86}.stamp{background:#e9f7f2;color:#147c5d;border-radius:7px;font-size:11px;padding:4px 7px;font-weight:750}#error{display:none;background:#ffeae9;border:1px solid #f2c6c3;padding:10px;color:#a52c2c;border-radius:10px;margin:14px 0}@media(max-width:900px){.stage{grid-template-columns:1fr}.info{display:grid;grid-template-columns:1fr 1fr;gap:14px}.info-top,.info h2,.info .big-value,.desc{grid-column:1/-1}.gallery{grid-template-columns:repeat(3,minmax(0,1fr))}.viewer canvas{height:340px}}@media(max-width:540px){.viewer canvas{height:290px}.info{display:flex}.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.asset-card canvas{height:106px}.pills button{padding:6px 8px;font-size:12px}.tools{justify-content:center}.panel-heading h2{font-size:17px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+:root{--ink:#183653;--sub:#61778b;--line:#dce6ef;--blue:#147bd2;--pale:#f5f9fd;--shadow:0 7px 23px rgba(19,55,92,.055)}
+*{box-sizing:border-box}html{scrollbar-gutter:stable}html,body{margin:0;min-height:100%;background:#fff;color:var(--ink);font:15px/1.4 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #48a8f6;outline-offset:3px}button:disabled{opacity:.4;cursor:default}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:14px clamp(18px,3vw,42px);border-bottom:1px solid var(--line)}.brand h1{font-size:clamp(23px,2.5vw,31px);line-height:1.1;letter-spacing:-.045em;margin:0}.brand p{color:var(--sub);font-size:13px;margin:5px 0 0}.version{font-size:11px;color:#467496;font-weight:800;letter-spacing:.11em;border:1px solid #d5e6f3;border-radius:999px;padding:7px 12px;white-space:nowrap}
+main{max-width:1430px;padding:14px clamp(14px,2.5vw,34px) 45px;margin:auto}.toolbar{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:13px}.entry{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.field{display:grid;gap:5px}.field label{font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:#637d96}.field input{height:42px;min-width:205px;max-width:240px;border:1px solid #cbdbe8;border-radius:10px;padding:0 13px;font-size:20px;font-weight:720;color:#163b60;font-variant-numeric:tabular-nums;background:#fff}.btn{border:1px solid #ccdfed;background:#fff;color:#245b86;border-radius:10px;padding:10px 15px;font-size:13px;font-weight:750;min-height:42px}.btn:hover{border-color:#7bb3e2;background:#f6fbff}.btn.primary{background:#1878c9;color:#fff;border-color:#1878c9}.btn.primary:hover{background:#0965b1}.toolbar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.status{font-size:12px;color:#5d7690;margin:0}.status strong{color:#245478}.alert{display:none;margin:-7px 0 16px;padding:9px 12px;border:1px solid #e9b4aa;border-radius:10px;color:#8f3225;background:#fff5f2;font-size:13px}
+.section-label{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#5d7b97;font-weight:850}.source{border:1px solid var(--line);border-radius:17px;padding:12px 15px;box-shadow:var(--shadow);background:#fff}.section-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:15px}.section-head h2{margin:0;font-size:17px;letter-spacing:-.02em}.hint{color:#70879b;font-size:12px}.digit-row{display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;gap:6px;min-height:102px}.digit{position:relative;border:1px solid #d8e4ed;border-radius:12px;min-width:75px;width:clamp(75px,8vw,94px);height:101px;background:#fff;display:flex;align-items:center;flex-direction:column;justify-content:center;gap:3px;user-select:none;touch-action:none;transition:background .15s,border-color .15s,box-shadow .15s;box-shadow:inset 0 -4px 0 var(--digit-color)}.digit:hover{border-color:var(--digit-color);box-shadow:inset 0 -4px 0 var(--digit-color),0 5px 15px #9bb6c426}.digit .num{font-size:36px;line-height:1;font-weight:800;letter-spacing:-.05em;font-variant-numeric:tabular-nums;color:#1d3854}.digit .place{font-size:10px;color:#6a8298;font-weight:700;white-space:normal;text-align:center;line-height:1.05;max-width:100%;padding:0 3px;min-height:20px;display:flex;align-items:center;justify-content:center}.digit .state{position:absolute;right:6px;top:4px;font-size:11px;color:#228e6a;opacity:0}.digit[aria-pressed="true"]{background:#f3f9fd;border-color:#b8d4e8;box-shadow:inset 0 -4px 0 var(--digit-color)}.digit[aria-pressed="true"] .state{opacity:1}.digit[aria-pressed="true"] .num{color:#7991a6}.comma-mark{align-self:center;display:flex;align-items:center;justify-content:center;width:21px;height:101px;flex:0 0 21px;font:700 68px/1 Georgia,"Times New Roman",serif;color:#183653;padding:0 0 8px;transform:translateY(7px);pointer-events:none}.drag-ghost{position:fixed;z-index:1000;pointer-events:none;min-width:65px;text-align:center;background:#fff;border:2px solid var(--ghost-color);border-radius:12px;padding:8px 13px;font-size:34px;font-weight:850;color:#163955;box-shadow:0 12px 30px #315e8a3a;transform:translate(-50%,-50%)}
+.workspace{margin-top:12px;border:1px solid #d9e6ef;border-radius:18px;min-height:245px;background:#fff;transition:border-color .14s,box-shadow .14s;box-shadow:var(--shadow);padding:12px}.workspace.is-over{border-color:#2488da;box-shadow:inset 0 0 0 2px #b6dcfa,0 5px 22px #4c9ee322}.workspace-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:12px}.workspace-top h2{margin:0;font-size:17px;letter-spacing:-.02em}.groups{display:flex;flex-direction:column;align-items:stretch;gap:10px;padding:0;min-height:286px}.group-row{display:flex;align-items:stretch;justify-content:center;gap:12px;width:100%}.slot{flex:0 1 265px;min-width:0;height:314px;min-height:314px;display:flex;align-items:stretch;justify-content:center;position:relative}.group{position:relative;width:100%;max-width:292px;min-width:0;border:1px solid #dce6ef;border-top:4px solid var(--accent);border-radius:14px;background:#fff;padding:11px 12px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}.group.has-plus::before{content:"+";position:absolute;left:-12px;top:42%;font-size:21px;font-weight:600;color:#88a3b8;background:white;padding:0 3px;line-height:1.2;z-index:2}.group:hover{border-color:#b0d1e8;border-top-color:var(--accent);box-shadow:0 6px 16px #16395513}.group:focus-visible{outline:3px solid #48a8f6;outline-offset:3px}.group .quantity{margin-top:8px;font-size:19px;font-weight:820;letter-spacing:-.025em;color:#1c4164}.group .quantity .digit-num{color:var(--accent)}.group canvas{display:block;width:100%;height:224px;cursor:inherit}
+.group.leaving{visibility:hidden}
+.digit.in-flight .num{opacity:.22}
+/* The whole digit tile travels from the numeral and expands into the block card. */
+.flight-tile{position:fixed;z-index:1001;pointer-events:none;overflow:hidden;background:#fff;border:1px solid #dce6ef;border-top:4px solid var(--accent);border-radius:13px;box-shadow:0 12px 34px #24557d36;will-change:left,top,width,height;user-select:none}
+.flight-tile .fly-number{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;font-size:36px;font-weight:820;line-height:1;color:var(--accent);white-space:nowrap}
+.flight-tile .fly-number small{font-size:10px;color:#67849b;font-weight:700}
+.flight-tile .fly-details{position:absolute;left:0;top:0;right:auto;bottom:auto;transform-origin:top left;display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 11px 11px;overflow:hidden}
+
+.flight-tile .fly-details .quantity{font-size:19px;font-weight:820;white-space:nowrap;color:#1c4164}
+.flight-tile .fly-details .quantity strong{color:var(--accent)}
+.flight-tile .fly-details canvas{display:block;width:100%;height:224px;flex:none;min-height:0}
+
+
+
+.expanded{margin-top:12px;border:1px solid var(--line);border-radius:16px;padding:12px 16px;background:#fff;box-shadow:var(--shadow)}.expanded h2{margin:0 0 12px;font-size:17px;letter-spacing:-.02em}.expression{min-height:50px;display:flex;align-content:flex-start;align-items:center;justify-content:center;flex-wrap:wrap;gap:9px;font-size:clamp(20px,2.4vw,29px);font-weight:790;color:#1d4062;font-variant-numeric:tabular-nums;letter-spacing:-.025em}.expression .term{padding:4px 1px;border-bottom:3px solid var(--accent)}.expression .operator{color:#8ca3b8;font-weight:500}.expression .equals{color:#8ca3b8;font-weight:500}.expression .total{color:#176db4}
+
+@media(max-width:800px){main{padding:12px 13px 35px}.source{padding:10px}.workspace{padding:10px}.digit{width:74px;min-width:74px;height:93px}.digit .num{font-size:31px}.digit .place{font-size:9px}.groups,.group-row{gap:8px}.slot{height:285px;min-height:285px}.group canvas,.flight-tile .fly-details canvas{height:205px}}
+@media(max-width:480px){.topbar{padding:15px}.brand h1{font-size:24px}.brand p{font-size:11px}.version{padding:6px 8px}.field input{min-width:160px;width:clamp(160px,52vw,210px)}.toolbar-right{width:100%}.digit-row{gap:5px}.digit{width:64px;min-width:64px;height:84px;border-radius:9px}.digit .num{font-size:29px}.digit .place{font-size:8px}.comma-mark{font-size:37px;padding-top:20px}.slot{min-height:218px}.group{padding:10px 5px}.group .quantity{font-size:15px}.group canvas,.flight-tile .fly-details canvas{height:150px}.workspace{min-height:240px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* Compact optional controls, without additional permanent labels. */
+.icon-btn{display:grid;place-items:center;width:43px;min-width:43px;padding:7px}
+.eye-closed{display:none}body.values-hidden .eye-open{display:none}body.values-hidden .eye-closed{display:block}
+body.values-hidden .group .quantity,body.values-hidden .flight-tile .fly-details .quantity{visibility:hidden}
+.expression{border-radius:8px}
+.expression .guess-input{font:inherit;font-size:clamp(17px,2.1vw,26px);font-weight:750;letter-spacing:-.02em;color:#1c4164;text-align:center;min-width:64px;max-width:min(92vw,250px);height:43px;padding:4px 8px;background:#f8fbfe;border:1px solid #cbdce9;border-bottom:3px solid var(--accent);border-radius:8px;font-variant-numeric:tabular-nums}
+.expression .guess-input::placeholder{color:#a1b3c4}
+.expression .guess-input:focus{outline:2px solid #49a4e8;outline-offset:1px;background:#fff}
+@media(max-width:480px){.expression .guess-input{height:40px;font-size:18px;min-width:58px;padding:4px 6px}}
+.group canvas{cursor:zoom-in}
+.inspector{border:1px solid #cbdde9;border-radius:18px;box-shadow:0 20px 70px #14345150;padding:14px 18px 18px;width:min(590px,calc(100vw - 24px));max-width:590px;max-height:calc(100dvh - 24px);color:var(--ink);background:#fff}
+.inspector::backdrop{background:rgba(16,38,58,.38)}
+.inspect-top{display:flex;align-items:center;gap:8px;min-height:37px}
+.inspect-title{font-size:19px;font-weight:790;text-align:center;flex:1}
+.inspect-back,.inspect-close{border:1px solid #d6e3ec;background:#fff;color:#2d648b;border-radius:9px;width:36px;height:36px;display:grid;place-items:center;font-size:23px;line-height:1}
+.inspect-back:hover,.inspect-close:hover{background:#eff7fc}.inspect-back:disabled{opacity:.22;cursor:default}
+.inspect-back:focus-visible,.inspect-close:focus-visible,.inspector canvas:focus-visible{outline:3px solid #48a8f6;outline-offset:3px}
+.inspector canvas{display:block;width:100%;height:min(48vh,355px);margin:7px auto 2px;cursor:zoom-in}
+.inspect-relation{min-height:24px;text-align:center;font-size:15px;font-weight:720;color:#436887}
+.inspect-relation[hidden]{visibility:hidden;display:block}
+@media(max-width:480px){.inspector{padding:10px}.inspector canvas{height:min(45vh,290px)}}
 </style>
 </head>
 <body>
-<header><div><h1>Place Value Studio</h1><p>Precision blocks · powers of ten · geometric asset prototype</p></div><span class="chip">BUILD 0.1</span></header>
+<header class="topbar"><div class="brand"><h1>Place Value Builder</h1></div><span class="version">BUILD 0.16</span></header>
 <main>
-  <div class="stage">
-    <section class="panel" aria-label="Place value asset viewer">
-      <div class="panel-heading"><div><div class="eyebrow">Inspect one block</div><h2 id="view-name">Ten Millions · rod</h2></div><span class="stamp">PARALLEL PROJECTION</span></div>
-      <div class="viewer"><canvas id="mainCanvas" role="img" aria-label="Geometrically exact place value block with nested subdivisions"></canvas></div>
-      <div class="tools">
-        <div class="pills" aria-label="View mode"><button type="button" data-view="block" aria-pressed="true">3D block</button><button type="button" data-view="face" aria-pressed="false">Front-face texture</button></div>
-        <div class="toolset"><span class="tiny">Detail</span><div class="pills" aria-label="Subdivision detail"><button type="button" data-detail="primary" aria-pressed="false">Main</button><button type="button" data-detail="nested" aria-pressed="true">Nested</button></div></div>
-        <div class="toolset"><span class="tiny" for="angle">Depth</span><input aria-label="Parallel projection depth" class="slider" id="angle" type="range" min="20" max="70" value="52"><button type="button" class="iconbtn" id="downloadPng" title="Save the selected block as a PNG">Save PNG</button></div>
-      </div>
-    </section>
-    <aside class="panel info" aria-live="polite">
-      <div class="info-top"><span class="color-dot" id="colorDot"></span><span class="eyebrow">Selected place value</span></div>
-      <h2 id="infoName">Ten Millions</h2><div class="big-value" id="infoNumber">10,000,000</div>
-      <p class="desc" id="description">A rod containing ten distinct million-cubes.</p>
-      <div class="mathbox"><div class="math" id="equation">10 × 1,000,000</div><div class="sub">Ten of the previous place value</div></div>
-      <div class="facts"><div class="fact"><span>Geometric shape</span><strong id="factShape">Rod</strong></div><div class="fact"><span>Block dimensions</span><strong id="factDims">1 × 10 × 1</strong></div><div class="fact"><span>Each major cell</span><strong id="factCell">One million cube</strong></div><div class="fact"><span>Nested structure</span><strong id="factNested">10 × 10 per visible face</strong></div></div>
-      <div class="note" id="note">Ten million-cubes are distinguishable by thick seams. Each cube shows its own finer 10 × 10 surface grid.</div>
-    </aside>
-  </div>
-  <div class="gallery-head"><div><h2>All ten place-value assets</h2><p>Select a block to inspect its dimensions and its constituent cubes.</p></div><span class="tiny">1 → 1,000,000,000</span></div>
-  <section class="gallery" id="gallery" aria-label="Ten place-value blocks"></section>
-  <div id="error"></div>
-  <div class="footer"><span>One box primitive · four dimension sets · procedural metallic surface grids · no external libraries</span><span>Geometry verification: 10 subdivisions on each repeated axis</span></div>
+ <div class="toolbar">
+  <div class="entry"><div class="field"><input id="numberInput" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" aria-label="Enter a whole number" value="3,541"></div><button class="btn primary" id="buildBtn">Use number</button></div>
+  <div class="toolbar-right"><button class="btn" id="expandBtn">Expand all</button><button class="btn" id="resetBtn">Reset blocks</button><button class="btn icon-btn" id="valuesBtn" type="button" aria-label="Hide values" aria-pressed="false" title="Hide values"><svg class="eye-open" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><svg class="eye-closed" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18M10.6 5.7c.5-.1.9-.2 1.4-.2 6.5 0 10 6.5 10 6.5a17 17 0 0 1-3.4 4.1M6.1 6.8C3.5 8.5 2 12 2 12s3.5 6.5 10 6.5c1.7 0 3.2-.4 4.4-1.1"/><path d="M10 10a3 3 0 0 0 4 4"/></svg></button></div>
+ </div>
+ <div class="alert" id="error" role="alert"></div>
+ <section class="source" aria-label="Digits in the number" id="source">
+  <div class="digit-row" id="digitRow"></div>
+ </section>
+ <section class="workspace" id="workspace" aria-label="Place value block workspace">
+  <div class="groups" id="groups" aria-live="polite"></div>
+ </section>
+ <section class="expanded" aria-label="Expanded form"><div class="expression" id="expression" aria-live="polite"></div></section>
+<dialog class="inspector" id="inspector" aria-labelledby="inspectTitle">
+ <div class="inspect-top"><button class="inspect-back" id="inspectBack" type="button" aria-label="Inspect larger unit" title="Back to larger unit">←</button><div id="inspectTitle" class="inspect-title"></div><button class="inspect-close" id="inspectClose" type="button" aria-label="Close inspection" title="Close">×</button></div>
+ <canvas id="inspectCanvas" role="button" tabindex="0" aria-label="Inspect smaller constituent unit"></canvas>
+ <div class="inspect-relation" id="inspectRelation"></div>
+</dialog>
 </main>
 <script>
-(function(){'use strict';
-const SHAPES=['Single','Rod','Flat','Cube'];
-const DATA=[
- {name:'Ones',hex:'#2ed95a'}, {name:'Tens',hex:'#f1bb14'}, {name:'Hundreds',hex:'#b44ce4'},
- {name:'Thousands',hex:'#1cb5e9'}, {name:'Ten Thousands',hex:'#177bdc'}, {name:'Hundred Thousands',hex:'#ee911c'},
- {name:'Millions',hex:'#c445e9'}, {name:'Ten Millions',hex:'#ed329d'}, {name:'Hundred Millions',hex:'#276ee4'}, {name:'Billions',hex:'#20cccd'}
-].map((d,e)=>({...d,e,value:10**e,shape:e===0?'Single':SHAPES[(e-1)%3+1],dims:e===0?[1,1,1]:e%3===1?[1,10,1]:e%3===2?[10,10,1]:[10,10,10]}));
-// Block dimensions are measured in *the repeating constituent unit*. A 10-million rod is
-// 1 x 10 x 1 MILLION-cubes, not 10 visually unrelated little ones.
-const $=id=>document.getElementById(id),main=$('mainCanvas'),gallery=$('gallery');
-let chosen=7,detail='nested',view='block',depth=52,ctxMain;
-const tintCache=new Map();
-function mix(a,b,t){return a.map((v,i)=>Math.round(v*(1-t)+b[i]*t))}
-function rgb(hex){const n=parseInt(hex.slice(1),16);return[(n>>16)&255,(n>>8)&255,n&255]}
-function cstr(a,alpha=1){return 'rgba('+a.join(',')+','+alpha+')'}
-function composite(hex,shade,bright){let base=rgb(hex);base=mix(base,[0,0,0],shade);return cstr(mix(base,[255,255,255],bright))}
-function faceTexture(e,cols,rows,side,detailMode){
- const key=[e,cols,rows,side,detailMode].join(':');if(tintCache.has(key))return tintCache.get(key);
- const sc=76,can=document.createElement('canvas');can.width=cols*sc;can.height=rows*sc;
- const g=can.getContext('2d',{alpha:false});let hex=DATA[e].hex,base=rgb(hex);
- // Each face is a true 2D texture of an exact 1x1 or 10x10 subdivision grid.
- let sh=side==='top'?-.055:side==='right'?.13:0;
- g.fillStyle=composite(hex,.32+sh,0);g.fillRect(0,0,can.width,can.height);
- for(let r=0;r<rows;r++)for(let col=0;col<cols;col++){
-   const x=col*sc,y=r*sc,offset=1.8,border=.8;
-   const grad=g.createLinearGradient(x,y,x+sc,y+sc);
-   grad.addColorStop(0,composite(hex,.04+sh,.48));
-   grad.addColorStop(.23,composite(hex,0,.22));
-   grad.addColorStop(.55,composite(hex,.02+sh,.04));
-   grad.addColorStop(1,composite(hex,.30+sh,0));
-   g.fillStyle=grad;g.fillRect(x+offset,y+offset,sc-2*offset,sc-2*offset);
-   g.fillStyle='rgba(255,255,255,.55)';g.fillRect(x+3.5,y+2.8,sc-7,2.1);
-   g.fillRect(x+2.9,y+4,1.7,sc-9);
-   g.fillStyle='rgba(3,19,50,.27)';g.fillRect(x+sc-4.8,y+4,1.7,sc-7.8);g.fillRect(x+4,y+sc-4.6,sc-7.4,1.8);
-   if(e>=4 && detailMode==='nested'){
-      // The major cells are 1,000-blocks for e=4..6, million-blocks for e=7..9.
-      // Exactly TEN minor divisions in each visible surface direction (9 interior lines).
-      let px=x+7.5,py=y+7.5,w=sc-15,h=sc-15,step=w/10;
-      g.fillStyle='rgba(255,255,255,.095)';g.fillRect(px,py,w,h);
-      g.lineWidth=.68;g.strokeStyle='rgba(6,27,67,.52)';g.beginPath();
-      for(let m=1;m<10;m++){
-       let t=step*m;
-       g.moveTo(px+t,py);g.lineTo(px+t,py+h);
-       g.moveTo(px,py+t);g.lineTo(px+w,py+t);
-      }g.stroke();
-      g.strokeStyle='rgba(0,15,48,.30)';g.lineWidth=.7;g.strokeRect(px,py,w,h);
-      // A subdued stipple within the secondary cells hints at deeper nesting
-      // for million-units without implying falsely sized primary blocks.
-      if(e>=7){
-       g.fillStyle='rgba(13,24,67,.29)';
-       for(let j=0;j<10;j++)for(let k=0;k<10;k++)g.fillRect(px+(k+.52)*step,py+(j+.50)*step,.65,.65);
-      }
-   }
- }
- // Outer face perimeter is geometrically separate from the grid's own macro seams.
- g.strokeStyle='rgba(9,26,58,.90)';g.lineWidth=2.7;g.strokeRect(1.6,1.6,can.width-3.2,can.height-3.2);
- tintCache.set(key,can);return can;
-}
-function prepCanvas(canvas){const rect=canvas.getBoundingClientRect(),ratio=Math.min(2,window.devicePixelRatio||1);
- const width=rect.width||parseFloat(canvas.style.width)||canvas.width||160;
- const height=rect.height||parseFloat(canvas.style.height)||canvas.height||100;
- const w=Math.max(160,Math.round(width*ratio)),h=Math.max(100,Math.round(height*ratio));
- if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}const g=canvas.getContext('2d');g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,w,h);return {g,w,h,ratio};}
-function facePolygon(g,A,B,D){const C=[B[0]+D[0]-A[0],B[1]+D[1]-A[1]];g.beginPath();g.moveTo(...A);g.lineTo(...B);g.lineTo(...C);g.lineTo(...D);g.closePath();}
-function paintFace(g,texture,A,B,D,edgeColor){
- g.save();facePolygon(g,A,B,D);g.clip();
- const tw=texture.width,th=texture.height;
- // A,B,D are three corners of one parallelogram; this affine mapping deliberately
- // has no vanishing point. Parallel edges stay parallel on every object.
- g.setTransform((B[0]-A[0])/tw,(B[1]-A[1])/tw,(D[0]-A[0])/th,(D[1]-A[1])/th,A[0],A[1]);
- g.drawImage(texture,0,0);g.restore();
- g.save();facePolygon(g,A,B,D);g.strokeStyle=edgeColor;g.lineWidth=1.7;g.lineJoin='round';g.stroke();g.restore();
-}
-function renderBlock(canvas,e,large=false){
- const {g,w,h}=prepCanvas(canvas),obj=DATA[e],dims=obj.dims;let [nx,ny,nz]=dims;
- let dx=depth/100,dy=depth*.0075;
- // Fixed orthographic/oblique parallel projection; no convergence on distant edges.
- const unit=Math.min((w-(large?96:34))/(nx+dx*nz),(h-(large?70:22))/(ny+dy*nz));
- let s=Math.max(1,unit*(large?.96:.93)),pw=s*(nx+dx*nz),ph=s*(ny+dy*nz);
- const ox=(w-pw)/2,oy=(h+ph)/2+((large?0:3));
- const P=(x,y,z)=>[ox+s*(x+dx*z),oy-s*(y+dy*z)];
- // Ground reflection is intentionally subtle: there is no scene/background geometry.
- if(large){
- g.save();g.filter='blur('+Math.max(9,s*.43)+'px)';g.fillStyle='rgba(26,48,81,.13)';
- g.beginPath();g.ellipse(ox+pw*.50,oy+2,pw*.37,Math.min(13,ph*.07),0,0,Math.PI*2);g.fill();g.restore();
- }
- const dark='rgba(13,26,52,.92)';
- // Right face: texture horizontal direction = z, vertical direction = y.
- paintFace(g,faceTexture(e,nz,ny,'right',detail),P(nx,ny,nz),P(nx,ny,0),P(nx,0,nz),dark);
- // Top face: horizontal direction = x, vertical direction = z.
- paintFace(g,faceTexture(e,nx,nz,'top',detail),P(0,ny,nz),P(nx,ny,nz),P(0,ny,0),dark);
- // Front face: horizontal direction = x, vertical direction = y.
- paintFace(g,faceTexture(e,nx,ny,'front',detail),P(0,ny,0),P(nx,ny,0),P(0,0,0),dark);
- // A magnified constituent cube is especially important for ten-thousand and
- // ten-million RODS: a tall 10:1 block otherwise makes its internal grid tiny.
- if(large && e>=4 && e%3===1 && view==='block'){
-   const r=Math.min(132,w*.18,h*.32), cx=w*.68, bottom=h*.61;
-   const q=(x,y,z)=>[cx+r*(x+dx*z),bottom-r*(y+dy*z)];
-   const from=P(1,ny-1.15,0),to=[cx-10,bottom-r*(1+dy)];
-   g.save();g.strokeStyle='rgba(62,114,164,.7)';g.lineWidth=1.7;g.setLineDash([5,5]);
-   g.beginPath();g.moveTo(...from);g.lineTo(to[0],from[1]);g.lineTo(...to);g.stroke();g.restore();
-   // This zoomed object is ONE major cell, retaining its true cubic proportions.
-   paintFace(g,faceTexture(e,1,1,'right',detail),q(1,1,1),q(1,1,0),q(1,0,1),dark);
-   paintFace(g,faceTexture(e,1,1,'top',detail),q(0,1,1),q(1,1,1),q(0,1,0),dark);
-   paintFace(g,faceTexture(e,1,1,'front',detail),q(0,1,0),q(1,1,0),q(0,0,0),dark);
-   g.save();g.textAlign='center';
-   const tx=cx+r*(1+dx)*.5,ty=bottom+25;
-   g.fillStyle='#17406a';g.font='700 14px system-ui, sans-serif';
-   g.fillText(e>=7?'ONE MILLION-CUBE':'ONE THOUSAND-CUBE',tx,ty);
-   g.fillStyle='#5b7792';g.font='12px system-ui, sans-serif';
-   g.fillText(e>=7?'10 × 10 × 10 thousand-cubes':'10 × 10 × 10 ones',tx,ty+21);g.restore();
- }
-}
-function renderFace(canvas,e){
- const {g,w,h}=prepCanvas(canvas),[nx,ny]=DATA[e].dims;
- const texture=faceTexture(e,nx,ny,'front',detail),scale=Math.min((w-62)/texture.width,(h-51)/texture.height);
- const x=(w-texture.width*scale)/2,y=(h-texture.height*scale)/2;
- g.drawImage(texture,x,y,texture.width*scale,texture.height*scale);
- g.strokeStyle='rgba(17,40,72,.73)';g.lineWidth=2;g.strokeRect(x,y,texture.width*scale,texture.height*scale);
-}
-function drawMain(){if(view==='face')renderFace(main,chosen);else renderBlock(main,chosen,true)}
-function drawCards(){gallery.querySelectorAll('canvas').forEach(can=>renderBlock(can,+can.dataset.exp));}
+(()=>{'use strict';
+const $=id=>document.getElementById(id);
+const PLACES=[
+ {name:'Ones',unit:'one',color:'#24b44c'},
+ {name:'Tens',unit:'ten',color:'#e0a900'},
+ {name:'Hundreds',unit:'hundred',color:'#9e45d2'},
+ {name:'Thousands',unit:'thousand',color:'#119bd8'},
+ {name:'Ten Thousands',unit:'ten-thousand',color:'#1778db'},
+ {name:'Hundred Thousands',unit:'hundred-thousand',color:'#e58b19'},
+ {name:'Millions',unit:'million',color:'#bc45db'},
+ {name:'Ten Millions',unit:'ten-million',color:'#db318e'},
+ {name:'Hundred Millions',unit:'hundred-million',color:'#246fe0'},
+ {name:'Billions',unit:'billion',color:'#1ab6b9'}
+].map((p,e)=>({...p,e,value:10**e,dims:e===0?[1,1,1]:e%3===1?[1,10,1]:e%3===2?[10,10,1]:[10,10,10],shape:e===0?'single cube':e%3===1?'rod':e%3===2?'flat':'cube'}));
+let number=3541,extracted=new Set(),detail='nested',activePointer=null;
+let valuesVisible=true,inspectedPlace=null,inspectRoot=null,inspectReturnFocus=null;
+const studentValues=new Map();
+const pending=new Set(),flights=new Set();let generation=0;
+const textureCache=new Map(),spriteCache=new Map(),hitRegions=new WeakMap();
 function format(n){return n.toLocaleString('en-US')}
-function cellValue(exp){return exp>=7?1_000_000:exp>=4?1_000:1;}
-function cellName(exp){return exp>=7?'million-cube':exp>=4?'thousand-cube':'one-cube'}
-function descFor(d){if(d.e===0)return 'One individual cube, the basic unit of the place-value system.';
- if(d.e%3===1)return `A rod of 10 ${cellName(d.e).replace('-cube','-cubes')}, stacked in a line.`;
- if(d.e%3===2)return `A flat of 100 ${cellName(d.e).replace('-cube','-cubes')}, arranged as 10 rows of 10.`;
- return `A cube of 1,000 ${cellName(d.e).replace('-cube','-cubes')}, arranged 10 × 10 × 10.`;}
-function updateInfo(){let d=DATA[chosen],value=d.value;
- $('infoName').textContent=d.name;$('infoNumber').textContent=format(value);$('view-name').textContent=d.name+' · '+d.shape.toLowerCase();
- $('description').textContent=descFor(d);$('equation').textContent=chosen===0?'1 unit':`10 × ${format(value/10)}`;
- $('factShape').textContent=d.shape;$('factDims').textContent=d.dims.join(' × ');
- $('factCell').textContent=chosen===0?'One unit':`${format(cellValue(chosen))} (${cellName(chosen)})`;
- $('factNested').textContent=chosen>=4?'10 × 10 grid on each major cell':chosen===0?'Single cube':'Exact 10-division primary grid';
- const unit=cellValue(chosen);
- $('note').textContent=chosen>=7?`Each of the ${chosen%3===1?10:chosen%3===2?100:1000} primary blocks represents ${format(unit)}. The finer 10 × 10 markings reveal the thousand-cubes within each million-cube.`:
- chosen>=4?`The thick seams separate ${format(unit)}-blocks. Each major block contains a fine 10 × 10 grid on its visible faces.`:
- `Every line is generated from an exact integer subdivision. Adjacent faces use the same dimensions and parallel projection.`;
- $('colorDot').style.background=d.hex;
- gallery.querySelectorAll('button[data-exp]').forEach(el=>{el.setAttribute('aria-pressed',Number(el.dataset.exp)===chosen?'true':'false')});
- drawMain();}
-function createGallery(){
- for(let e=9;e>=0;e--){let d=DATA[e],button=document.createElement('button');button.type='button';button.className='asset-card';button.dataset.exp=e;button.setAttribute('aria-label',d.name+' '+format(d.value)+' '+d.shape);button.setAttribute('aria-pressed',e===chosen?'true':'false');
- const canvas=document.createElement('canvas');canvas.dataset.exp=e;
- const name=document.createElement('span');name.className='name';name.textContent=d.name;
- const number=document.createElement('strong');number.className='number';number.textContent=format(d.value);
- const shape=document.createElement('span');shape.className='shape';shape.textContent=d.shape+' · '+d.dims.join(' × ');
- button.append(canvas,name,number,shape);gallery.append(button);button.addEventListener('click',()=>{chosen=e;updateInfo();window.scrollTo({top:0,behavior:'smooth'});});
+function parseInput(raw){const s=raw.trim();if(!/^[\d,\s]+$/.test(s))return null;const clean=s.replace(/[\s,]/g,'');if(!/^\d{1,13}$/.test(clean))return null;const n=Number(clean);return Number.isSafeInteger(n)&&n>=0&&n<=1000000000?n:null}
+function digits(){return String(number).split('').map((digit,i,arr)=>({digit:+digit,e:arr.length-i-1}));}
+function rgb(hex){const n=parseInt(hex.slice(1),16);return[(n>>16)&255,(n>>8)&255,n&255]}
+function mix(a,b,t){return a.map((v,i)=>Math.round(v*(1-t)+b[i]*t))}
+function rgba(a,alpha=1){return `rgba(${a.join(',')},${alpha})`}
+function tone(hex,shade,bright){let c=mix(rgb(hex),[0,0,0],Math.max(0,shade));return rgba(mix(c,[255,255,255],Math.max(0,bright)))}
+// All three visible faces are procedural textures. The larger cells are complete
+// constituent cubes, with their own ten-by-ten surface grids where appropriate.
+function texture(e,cols,rows,side,mode){
+ const key=[e,cols,rows,side,mode].join(':');if(textureCache.has(key))return textureCache.get(key);
+ const sc=66,can=document.createElement('canvas');can.width=cols*sc;can.height=rows*sc;
+ const g=can.getContext('2d',{alpha:false}),hex=PLACES[e].color;
+ const shade=side==='top'?0:side==='right'?.14:.035;
+ g.fillStyle=tone(hex,.31+shade,0);g.fillRect(0,0,can.width,can.height);
+ for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
+  const x=c*sc,y=r*sc,grad=g.createLinearGradient(x,y,x+sc,y+sc);
+  grad.addColorStop(0,tone(hex,.02+shade,.54));grad.addColorStop(.22,tone(hex,.0+shade,.24));grad.addColorStop(.56,tone(hex,.05+shade,.07));grad.addColorStop(1,tone(hex,.31+shade,0));
+  g.fillStyle=grad;g.fillRect(x+1.7,y+1.7,sc-3.4,sc-3.4);
+  g.fillStyle='rgba(255,255,255,.57)';g.fillRect(x+3,y+2.8,sc-6,1.8);g.fillRect(x+2.8,y+3.8,1.6,sc-8);
+  g.fillStyle='rgba(4,19,47,.28)';g.fillRect(x+sc-4.3,y+4,1.6,sc-7);g.fillRect(x+4,y+sc-4.5,sc-8,1.6);
+  if(e>=4&&mode==='nested'){
+   // 10 x 10 fine lines on each major cell, representing a complete lower cube.
+   const px=x+6.5,py=y+6.5,w=sc-13,step=w/10;
+   g.strokeStyle='rgba(9,30,70,.52)';g.lineWidth=.68;g.beginPath();
+   for(let m=1;m<10;m++){g.moveTo(px+m*step,py);g.lineTo(px+m*step,py+w);g.moveTo(px,py+m*step);g.lineTo(px+w,py+m*step)}g.stroke();
+   g.strokeStyle='rgba(8,29,65,.35)';g.lineWidth=.8;g.strokeRect(px,py,w,w);
+  }
+ }
+ g.strokeStyle='rgba(10,31,58,.86)';g.lineWidth=2.5;g.strokeRect(1.4,1.4,can.width-2.8,can.height-2.8);
+ textureCache.set(key,can);return can;
+}
+function poly(g,A,B,D){const C=[B[0]+D[0]-A[0],B[1]+D[1]-A[1]];g.beginPath();g.moveTo(...A);g.lineTo(...B);g.lineTo(...C);g.lineTo(...D);g.closePath()}
+function face(g,tex,A,B,D){g.save();poly(g,A,B,D);g.clip();g.setTransform((B[0]-A[0])/tex.width,(B[1]-A[1])/tex.width,(D[0]-A[0])/tex.height,(D[1]-A[1])/tex.height,A[0],A[1]);g.drawImage(tex,0,0);g.restore();g.save();poly(g,A,B,D);g.strokeStyle='rgba(10,31,57,.86)';g.lineWidth=1.4;g.lineJoin='round';g.stroke();g.restore()}
+function paintBlock(g,e,x,y,w,h,mode='nested'){
+ const [nx,ny,nz]=PLACES[e].dims,dx=.55,dy=.39;
+ const pad=PLACES[e].shape==='rod'?Math.min(1.2,w*.04):7;
+ const u=Math.min((w-pad)/(nx+dx*nz),(h-pad)/(ny+dy*nz));
+ const s=Math.max(.5,u*(PLACES[e].shape==='rod'?.98:.94)),pw=s*(nx+dx*nz),ph=s*(ny+dy*nz);
+ const ox=x+(w-pw)/2,oy=y+(h+ph)/2;
+ const P=(a,b,c)=>[ox+s*(a+dx*c),oy-s*(b+dy*c)];
+ const T=(a,b,side)=>texture(e,a,b,side,mode);
+ face(g,T(nz,ny,'right'),P(nx,ny,nz),P(nx,ny,0),P(nx,0,nz));
+ face(g,T(nx,nz,'top'),P(0,ny,nz),P(nx,ny,nz),P(0,ny,0));
+ face(g,T(nx,ny,'front'),P(0,ny,0),P(nx,ny,0),P(0,0,0));
+ // Visible silhouette in the same parallel projection, for precise hit testing.
+ return [P(0,ny,0),P(0,ny,nz),P(nx,ny,nz),P(nx,0,nz),P(nx,0,0),P(0,0,0)];
+}
+function sprite(e){const key=e+':'+detail;if(spriteCache.has(key))return spriteCache.get(key);const c=document.createElement('canvas');c.width=240;c.height=240;paintBlock(c.getContext('2d'),e,4,4,232,232,detail);spriteCache.set(key,c);return c}
+function setupCanvas(c){const rect=c.getBoundingClientRect(),dpr=Math.min(2,window.devicePixelRatio||1),w=Math.max(100,Math.round(rect.width*dpr)),h=Math.max(100,Math.round(rect.height*dpr));if(c.width!==w||c.height!==h){c.width=w;c.height=h}const g=c.getContext('2d');g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,w,h);return {g,w,h}}
+// A tightly joined two-row arrangement for square flats and cubes.
+// Fill columns top, bottom, top, bottom. When the count is odd, place the
+// unmatched final unit in the BOTTOM row, not the top row.
+function blockCells(kind,count){
+ const stacked=kind==='flat'||kind==='cube'||kind==='single cube';
+ if(!stacked)return Array.from({length:count},(_,i)=>({col:i%5,row:Math.floor(i/5)}));
+ if(count===1)return [{col:0,row:0}];
+ return Array.from({length:count},(_,i)=>({
+  col:Math.floor(i/2),
+  row:(count%2===1&&i===count-1)?1:i%2
+ }));
+}
+function drawGroup(canvas,e,count,override=null){
+ const {g,w,h}=setupCanvas(canvas,override);
+ if(count===0){hitRegions.set(canvas,[]);return;}
+ const kind=PLACES[e].shape;
+ const stacked=kind==='flat'||kind==='cube'||kind==='single cube';
+ const cells=blockCells(kind,count);
+ const usedColumns=Math.max(...cells.map(c=>c.col))+1;
+ const rows=Math.max(...cells.map(c=>c.row))+1;
+ const [nx,ny,nz]=PLACES[e].dims,dx=.55,dy=.39;
+ const ratio=(nx+dx*nz)/(ny+dy*nz);
+ const margin=4,gapX=2.5,gapY=2.5;
+ // The front faces nearly meet. Perspective depth remains visible at the
+ // outer right edge and on the upper surfaces of each group.
+ const frontFraction=nx/(nx+dx*nz);
+ const frontStepFactor=kind==='rod'?1:.94*frontFraction;
+ const maxWidth=kind==='rod'
+  ?(w-2*margin-(usedColumns-1)*2)/usedColumns
+  :(w-2*margin-(usedColumns-1)*(gapX-7*frontStepFactor)) /
+    (1+(usedColumns-1)*frontStepFactor);
+ // Use the SAME tight vertical join for flats as for cubes. The top face of
+ // a lower unit tucks behind the front face of the upper unit.
+ const frontHeightFraction=stacked?.94*ny/(ny+dy*nz):1;
+ const maxHeight=stacked
+  ?(h-2*margin-(rows-1)*(gapY-7*frontHeightFraction)) /
+    (1+(rows-1)*frontHeightFraction)
+  :(h-2*margin-(rows-1)*gapY)/rows;
+ // Keep the ones cube intentionally smaller, with unchanged proportions.
+ const visualScale=e===0?.68:1;
+ const blockH=Math.max(1,Math.min(maxHeight,maxWidth/ratio))*visualScale;
+ const blockW=blockH*ratio;
+ const stepX=kind==='rod'?blockW+2:frontStepFactor*(blockW-7)+gapX;
+ const projectedUnit=Math.min((blockW-7)/(nx+dx*nz),(blockH-7)/(ny+dy*nz));
+ const stepY=stacked?Math.max(.5,projectedUnit*.94)*ny+gapY:blockH+gapY;
+ const clusterW=blockW+(usedColumns-1)*stepX;
+ const clusterH=blockH+(rows-1)*stepY;
+ const x0=(w-clusterW)/2,y0=(h-clusterH)/2;
+ // Draw lower row first so its top surface is correctly occluded by the
+ // front of the upper row. Left-to-right drawing joins side faces as well.
+ if(stacked)cells.sort((a,b)=>b.row-a.row||a.col-b.col);
+ const regions=[];
+ for(const {col,row} of cells){
+  regions.push(paintBlock(g,e,x0+col*stepX,y0+row*stepY,blockW,blockH,detail));
+ }
+ hitRegions.set(canvas,regions);
+}
+function paintAll(){document.querySelectorAll('.group canvas').forEach(c=>drawGroup(c,+c.dataset.e,+c.dataset.count))}
+function pointInsidePolygon(x,y,points){
+ let inside=false;
+ for(let i=0,j=points.length-1;i<points.length;j=i++){
+  const [xi,yi]=points[i],[xj,yj]=points[j];
+  if(((yi>y)!==(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi))inside=!inside;
+ }
+ return inside;
+}
+function blockUnderPointer(canvas,event){
+ const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return false;
+ const x=(event.clientX-rect.left)*canvas.width/rect.width;
+ const y=(event.clientY-rect.top)*canvas.height/rect.height;
+ return (hitRegions.get(canvas)||[]).some(poly=>pointInsidePolygon(x,y,poly));
+}
+function drawInspector(){
+ if(inspectedPlace===null)return;
+ const e=inspectedPlace,place=PLACES[e],canvas=$('inspectCanvas');
+ $('inspectTitle').textContent=place.name;
+ $('inspectBack').disabled=e===inspectRoot;
+ const {g,w,h}=setupCanvas(canvas);
+ const pad=Math.min(w,h)*.045;
+ paintBlock(g,e,pad,pad,w-2*pad,h-2*pad,'nested');
+ $('inspectRelation').textContent=e===0?'':`10 × ${format(PLACES[e-1].value)} = ${format(place.value)}`;
+ $('inspectRelation').hidden=!valuesVisible||e===0;
+ canvas.setAttribute('aria-label',e>0?`Inspect a ${PLACES[e-1].unit} unit inside this ${place.unit} block`:'Single unit');
+ canvas.style.cursor=e>0?'zoom-in':'default';
+}
+function inspect(e){
+ inspectRoot=e;inspectedPlace=e;inspectReturnFocus=document.activeElement;
+ const dialog=$('inspector');
+ if(!dialog.open)dialog.showModal();
+ requestAnimationFrame(drawInspector);
+}
+function inspectDeeper(){if(inspectedPlace!==null&&inspectedPlace>0){inspectedPlace--;drawInspector()}}
+function closeInspector(){if($('inspector').open)$('inspector').close()}
+
+function makeDigit(d,index,length){const p=PLACES[d.e],b=document.createElement('button');b.type='button';b.className='digit';b.style.setProperty('--digit-color',p.color);b.dataset.e=d.e;b.setAttribute('aria-pressed',String(extracted.has(d.e)));b.setAttribute('aria-label',`${d.digit} in the ${p.name.toLowerCase()} place: ${format(d.digit*p.value)}. ${extracted.has(d.e)?'Return':'Pull out'} this place`);
+ const numberSpan=document.createElement('span');numberSpan.className='num';numberSpan.textContent=d.digit;
+ const placeSpan=document.createElement('span');placeSpan.className='place';placeSpan.textContent=p.name;
+ const check=document.createElement('span');check.className='state';check.textContent='✓';check.setAttribute('aria-hidden','true');
+ b.append(numberSpan,placeSpan,check);b.addEventListener('pointerdown',startPointer);b.addEventListener('pointermove',movePointer);b.addEventListener('pointerup',endPointer);b.addEventListener('pointercancel',cancelPointer);
+ b.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();toggle(d.e)}});
+ return b}
+function renderDigits(){const row=$('digitRow');row.replaceChildren();const ds=digits();ds.forEach((d,i)=>{if(i>0&&(ds.length-i)%3===0){const comma=document.createElement('span');comma.className='comma-mark';comma.textContent=',';comma.setAttribute('aria-hidden','true');row.append(comma)}row.append(makeDigit(d,i,ds.length))})}
+function makeGroup(d){
+ const p=PLACES[d.e],el=document.createElement('article');
+ el.className='group';el.style.setProperty('--accent',p.color);el.dataset.e=d.e;
+ el.setAttribute('role','group');el.tabIndex=0;
+ el.setAttribute('aria-label',`Return ${d.digit} ${p.name.toLowerCase()} to the number`);
+ el.title='Return to number';
+ const qty=document.createElement('div');qty.className='quantity';
+ qty.innerHTML=`<span class="digit-num">${d.digit}</span> ${d.digit===1?p.unit:p.unit+'s'}`;
+ const canvas=document.createElement('canvas');canvas.dataset.e=d.e;canvas.dataset.count=d.digit;
+ canvas.setAttribute('role','button');canvas.tabIndex=0;
+ canvas.setAttribute('aria-label',`Inspect a ${p.unit} block`);
+ canvas.addEventListener('click',ev=>{if(blockUnderPointer(canvas,ev)){ev.stopPropagation();inspect(d.e)}});
+ canvas.addEventListener('mousemove',ev=>{canvas.style.cursor=blockUnderPointer(canvas,ev)?'zoom-in':'pointer'});
+ canvas.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();ev.stopPropagation();inspect(d.e)}});
+ el.append(qty,canvas);
+ el.addEventListener('click',()=>toggle(d.e));
+ el.addEventListener('keydown',ev=>{if(ev.target!==el)return;if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();toggle(d.e)}});
+ return el;
+}
+function layoutSlots(){
+ const container=$('groups'),ds=digits(),count=ds.length;
+ const available=container.clientWidth;
+ // On desktop 1–4 places stay in one close, centered line. With more places,
+ // the higher-value places occupy the upper row and lower values the next.
+ // Additional rows appear only when the viewport cannot fit the cards.
+ const cardWidth=available<550?148:205;
+ const fit=Math.max(1,Math.min(5,Math.floor((available+12)/(cardWidth+12))));
+ const desiredRows=count>=5?Math.max(2,Math.ceil(count/fit)):Math.ceil(count/fit);
+ const rows=Math.max(1,desiredRows),base=Math.floor(count/rows),extra=count%rows;
+ const sizes=Array.from({length:rows},(_,i)=>base+(i<extra?1:0));
+ const slots=ds.map(d=>$(`slot-${d.e}`));
+ const fragment=document.createDocumentFragment();let cursor=0;
+ sizes.forEach((size,i)=>{
+  const row=document.createElement('div');row.className='group-row';row.dataset.row=i;
+  for(let j=0;j<size;j++)row.append(slots[cursor++]);
+  fragment.append(row);
+ });
+ container.replaceChildren(fragment);syncPlus();
+}
+function makeSlots(){
+ const groups=$('groups');groups.replaceChildren();
+ for(const d of digits()){
+  const slot=document.createElement('div');slot.className='slot';slot.dataset.e=d.e;
+  slot.id=`slot-${d.e}`;groups.append(slot);
+ }
+ layoutSlots();
+}
+function syncPlus(){
+ for(const row of $('groups').querySelectorAll('.group-row')){
+  let first=true;
+  for(const slot of row.querySelectorAll('.slot')){
+   const g=slot.querySelector('.group');
+   if(g){g.classList.toggle('has-plus',!first);first=false}
+  }
  }
 }
-let resizePending=false;
-function refresh(){resizePending=false;drawMain();drawCards()}
-const observer=new ResizeObserver(()=>{if(!resizePending){resizePending=true;requestAnimationFrame(refresh)}});
-createGallery();observer.observe(main);gallery.querySelectorAll('canvas').forEach(c=>observer.observe(c));
-for(const b of document.querySelectorAll('[data-view]'))b.addEventListener('click',()=>{view=b.dataset.view;document.querySelectorAll('[data-view]').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));drawMain()});
-for(const b of document.querySelectorAll('[data-detail]'))b.addEventListener('click',()=>{detail=b.dataset.detail;document.querySelectorAll('[data-detail]').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));drawMain();drawCards()});
-$('angle').addEventListener('input',e=>{depth=Number(e.target.value);drawMain();drawCards()});
-$('downloadPng').addEventListener('click',()=>{
- // Export the selected block (not the whole page) at 2x natural resolution.
- const exportCanvas=document.createElement('canvas');exportCanvas.width=1400;exportCanvas.height=1100;
- exportCanvas.style.width='700px';exportCanvas.style.height='550px';
- if(view==='face')renderFace(exportCanvas,chosen);else renderBlock(exportCanvas,chosen,true);
- exportCanvas.toBlob(blob=>{if(!blob){$('error').style.display='block';$('error').textContent='PNG export was not supported by this browser.';return;}
- const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='place-value-'+DATA[chosen].value+'.png';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500);
- },'image/png');
-});
-updateInfo();requestAnimationFrame(refresh);
+function updateSlot(e){
+ const slot=$(`slot-${e}`);if(!slot)return;
+ const d=digits().find(d=>d.e===e);if(!d)return;
+ slot.replaceChildren();
+ if(extracted.has(e)){
+  const group=makeGroup(d);slot.append(group);
+  drawGroup(group.querySelector('canvas'),e,d.digit);
+ }
+ syncPlus();
+}
+function renderGroups(){makeSlots();for(const e of extracted)updateSlot(e)}
+function syncDigit(e){
+ const b=$('digitRow').querySelector(`.digit[data-e="${e}"]`);if(!b)return;
+ const d=digits().find(d=>d.e===e);if(!d)return;
+ b.setAttribute('aria-pressed',String(extracted.has(e)));
+ b.setAttribute('aria-label',`${d.digit} in the ${PLACES[e].name.toLowerCase()} place: ${format(d.digit*PLACES[e].value)}. ${extracted.has(e)?'Return':'Pull out'} this place`);
+}
+function buildExpression(el,visible,complete=false){
+ el.replaceChildren();
+ const ds=complete?digits():digits().filter(d=>extracted.has(d.e));
+ if(!ds.length)return;
+ const terms=ds.filter(d=>d.digit>0);
+ // A standalone zero has one place-value term, even though it is not positive.
+ if(!terms.length)terms.push(ds[ds.length-1]);
+ terms.forEach((d,i)=>{
+  if(i){const plus=document.createElement('span');plus.className='operator';plus.textContent='+';el.append(plus)}
+  const color=PLACES[d.e].color,correct=format(d.digit*PLACES[d.e].value);
+  if(visible){
+   const term=document.createElement('span');term.className='term';
+   term.style.setProperty('--accent',color);term.textContent=correct;el.append(term);
+  }else{
+   const field=document.createElement('input');field.type='text';field.className='guess-input';
+   field.inputMode='numeric';field.autocomplete='off';field.spellcheck=false;
+   field.maxLength=16;field.placeholder='?';field.dataset.e=d.e;
+   field.style.setProperty('--accent',color);
+   field.style.width=`${Math.max(6,correct.length+1.5)}ch`;
+   field.setAttribute('aria-label',`Value of ${d.digit} ${d.digit===1?PLACES[d.e].unit:PLACES[d.e].unit+'s'}`);
+   field.value=studentValues.get(d.e)??'';
+   field.addEventListener('input',()=>studentValues.set(d.e,field.value));
+   field.addEventListener('blur',()=>{
+    const raw=field.value.trim().replace(/[\s,]/g,'');
+    if(/^\d+$/.test(raw)&&Number.isSafeInteger(Number(raw))){
+     const formatted=format(Number(raw));field.value=formatted;studentValues.set(d.e,formatted);
+    }
+   });
+   el.append(field);
+  }
+ });
+ if(visible&&(complete||ds.length===digits().length)){
+  const eq=document.createElement('span');eq.className='equals';eq.textContent='=';
+  const sum=document.createElement('span');sum.className='total';sum.textContent=format(number);
+  el.append(eq,sum);
+ }
+}
+function renderExpression(){
+ const el=$('expression');
+ const active=document.activeElement,activeE=active?.classList?.contains('guess-input')?active.dataset.e:null;
+ const selection=activeE!==null?[active.selectionStart,active.selectionEnd]:null;
+ buildExpression(el,valuesVisible);
+ if(activeE!==null&&!valuesVisible){
+  const field=el.querySelector(`.guess-input[data-e="${activeE}"]`);
+  if(field){field.focus({preventScroll:true});if(selection)field.setSelectionRange(...selection)}
+ }
+}
+function reserveExpressionSpace(){
+ const visible=$('expression'),width=visible.clientWidth;
+ if(width<=0)return;
+ const probe=document.createElement('div');
+ probe.className='expression';probe.setAttribute('aria-hidden','true');
+ probe.style.cssText=`position:absolute;left:-100000px;top:0;width:${width}px;height:auto;min-height:0;visibility:hidden;pointer-events:none`;
+ document.body.append(probe);
+ let measured=50;
+ for(const shown of [true,false]){
+  buildExpression(probe,shown,true);
+  measured=Math.max(measured,Math.ceil(probe.getBoundingClientRect().height));
+ }
+ probe.remove();
+ visible.style.height=(measured+2)+'px';
+}
+function toggleValues(){
+ valuesVisible=!valuesVisible;
+ document.body.classList.toggle('values-hidden',!valuesVisible);
+ const button=$('valuesBtn');
+ button.setAttribute('aria-pressed',String(!valuesVisible));
+ button.setAttribute('aria-label',valuesVisible?'Hide values':'Show values');
+ button.title=valuesVisible?'Hide values':'Show values';
+ renderExpression();
+ if($('inspector').open)drawInspector();
+}
+function render(){renderDigits();renderGroups();renderExpression();reserveExpressionSpace();syncExpandAll()}
+function syncExpandAll(){
+ // The button remains available for any places not yet extracted or in flight.
+ $('expandBtn').disabled=digits().every(d=>extracted.has(d.e)||pending.has(d.e));
+}
+function expandAll(){
+ // Each tile flies from its own digit to its permanent destination.
+ // Launch together so a ten-digit number does not require a long wait.
+ for(const d of digits())if(!extracted.has(d.e)&&!pending.has(d.e))animatePlace(d.e,true);
+}
+function commitPlace(e,extract){
+ if(extract)extracted.add(e);else extracted.delete(e);
+ updateSlot(e);syncDigit(e);renderExpression();syncExpandAll();
+}
+function stopFlights(){
+ generation++;
+ for(const cancel of [...flights])cancel();
+ flights.clear();pending.clear();
+ document.querySelectorAll('.digit.in-flight').forEach(b=>b.classList.remove('in-flight'));
+ document.querySelectorAll('.group.leaving').forEach(g=>g.classList.remove('leaving'));
+}
+function targetGroupRect(e){
+ // Measure the final card in its reserved slot without showing it.
+ const slot=$(`slot-${e}`),d=digits().find(d=>d.e===e);
+ const probe=makeGroup(d);probe.style.visibility='hidden';probe.style.animation='none';
+ slot.append(probe);
+ const rect=probe.getBoundingClientRect();probe.remove();return rect;
+}
+function makeFlightTile(d,rect,renderRect){
+ const p=PLACES[d.e],fly=document.createElement('div');fly.className='flight-tile';
+ fly.style.setProperty('--accent',p.color);
+ fly.style.left=rect.left+'px';fly.style.top=rect.top+'px';
+ fly.style.width=rect.width+'px';fly.style.height=rect.height+'px';
+ const number=document.createElement('div');number.className='fly-number';
+ const n=document.createElement('span');n.textContent=d.digit;
+ const small=document.createElement('small');small.textContent=p.name;
+ number.append(n,small);
+ const details=document.createElement('div');details.className='fly-details';
+ // Keep the content at its full, final dimensions. Scale it uniformly during
+ // the flight; resizing the canvas bitmap with the changing card would stretch
+ // cubes into flat cuboids, especially for the ones place.
+ const fullWidth=renderRect.width,fullHeight=renderRect.height;
+ details.style.width=fullWidth+'px';details.style.height=fullHeight+'px';
+ const quantity=document.createElement('div');quantity.className='quantity';
+ const strong=document.createElement('strong');strong.textContent=d.digit;
+ quantity.append(strong,document.createTextNode(' '+(d.digit===1?p.unit:p.unit+'s')));
+ const canvas=document.createElement('canvas');canvas.dataset.e=d.e;canvas.dataset.count=d.digit;
+ details.append(quantity,canvas);fly.append(number,details);
+ document.body.append(fly);
+ // The canvas is rendered only once at the destination card size. Its
+ // texture and its perspective therefore keep the same aspect ratio.
+ drawGroup(canvas,d.e,d.digit);
+ return {fly,number,details,fullWidth,fullHeight};
+}
+function smooth(a,b,t){const u=Math.max(0,Math.min(1,(t-a)/(b-a)));return u*u*(3-2*u)}
+function animatePlace(e,extract){
+ if(pending.has(e))return;
+ const b=$('digitRow').querySelector(`.digit[data-e="${e}"]`),slot=$(`slot-${e}`);
+ if(!b||!slot)return;
+ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){commitPlace(e,extract);return}
+ const d=digits().find(d=>d.e===e),group=slot.querySelector('.group');
+ const from=extract?b.getBoundingClientRect():group?.getBoundingClientRect();
+ if(!from)return;
+ const dest=extract?targetGroupRect(e):b.getBoundingClientRect();
+ const {fly,number:flyNumber,details,fullWidth,fullHeight}=makeFlightTile(d,from,extract?dest:from);
+ if(extract)b.classList.add('in-flight');else group?.classList.add('leaving');
+ pending.add(e);syncExpandAll();
+ const epoch=generation,start=performance.now(),duration=680;
+ let frame=0,done=false;
+ const cancel=()=>{
+  if(done)return;
+  done=true;cancelAnimationFrame(frame);fly.remove();
+  b.classList.remove('in-flight');group?.classList.remove('leaving');
+  pending.delete(e);flights.delete(cancel);syncExpandAll();
+ };
+ flights.add(cancel);
+ const tick=now=>{
+  if(epoch!==generation){cancel();return}
+  const t=Math.min(1,(now-start)/duration),ease=smooth(0,1,t);
+  const bump=t>.83?Math.sin(Math.PI*(t-.83)/.17)*.035:0;
+  const width=from.width+(dest.width-from.width)*ease;
+  const height=from.height+(dest.height-from.height)*ease;
+  const w=width*(1+bump),h=height*(1+bump);
+  const lift=14*4*t*(1-t);
+  fly.style.left=(from.left+(dest.left-from.left)*ease-(w-width)/2)+'px';
+  fly.style.top=(from.top+(dest.top-from.top)*ease-(h-height)/2-lift)+'px';
+  fly.style.width=w+'px';fly.style.height=h+'px';
+  // Scale the entire block card by ONE factor, never width and height
+  // independently. The tile frame may change aspect ratio, but the block
+  // geometry cannot: a cube remains a cube throughout the flight.
+  const contentScale=Math.min(w/fullWidth,h/fullHeight);
+  const scaledWidth=fullWidth*contentScale,scaledHeight=fullHeight*contentScale;
+  const contentX=(w-scaledWidth)/2,contentY=(h-scaledHeight)/2;
+  details.style.transform=`translate(${contentX}px,${contentY}px) scale(${contentScale})`;
+  // The numeral becomes the place-value card as the same tile grows.
+  flyNumber.style.opacity=String(extract?1-smooth(.36,.68,t):smooth(.35,.72,t));
+  details.style.opacity=String(extract?smooth(.64,.94,t):1-smooth(.18,.48,t));
+  if(t<1){frame=requestAnimationFrame(tick);return}
+  commitPlace(e,extract);cancel();
+ };
+ flyNumber.style.opacity=extract?'1':'0';details.style.opacity=extract?'0':'1';
+ const initialScale=Math.min(from.width/fullWidth,from.height/fullHeight);
+ details.style.transform=`translate(${(from.width-fullWidth*initialScale)/2}px,${(from.height-fullHeight*initialScale)/2}px) scale(${initialScale})`;
+ frame=requestAnimationFrame(tick);
+}
+function toggle(e){if(pending.has(e))return;animatePlace(e,!extracted.has(e))}
+function setNumber(n){closeInspector();stopFlights();number=n;extracted.clear();studentValues.clear();$('numberInput').value=format(n);$('error').style.display='none';render()}
+function applyInput(){const n=parseInput($('numberInput').value);if(n===null){$('error').textContent='Enter a whole number from 0 through 1,000,000,000.';$('error').style.display='block';return}setNumber(n)}
+// Pointer drag supports touch, pen and mouse. A simple tap or keyboard activation
+// toggles the place; drag to workspace extracts, drag back to number returns.
+function startPointer(ev){if(ev.button!==0||activePointer)return;const b=ev.currentTarget;activePointer={id:ev.pointerId,e:+b.dataset.e,x:ev.clientX,y:ev.clientY,dragged:false,ghost:null,button:b};b.setPointerCapture(ev.pointerId)}
+function movePointer(ev){const a=activePointer;if(!a||a.id!==ev.pointerId)return;const dist=Math.hypot(ev.clientX-a.x,ev.clientY-a.y);if(!a.dragged&&dist>9){a.dragged=true;const ghost=document.createElement('div');ghost.className='drag-ghost';ghost.style.setProperty('--ghost-color',PLACES[a.e].color);ghost.textContent=String(digits().find(d=>d.e===a.e).digit);document.body.append(ghost);a.ghost=ghost}
+ if(a.dragged){ev.preventDefault();a.ghost.style.left=ev.clientX+'px';a.ghost.style.top=ev.clientY+'px';const r=$('workspace').getBoundingClientRect();$('workspace').classList.toggle('is-over',ev.clientX>=r.left&&ev.clientX<=r.right&&ev.clientY>=r.top&&ev.clientY<=r.bottom)}}
+function finishPointer(ev,cancel=false){const a=activePointer;if(!a||a.id!==ev.pointerId)return;activePointer=null;if(a.ghost)a.ghost.remove();$('workspace').classList.remove('is-over');if(cancel)return;
+ if(!a.dragged){toggle(a.e);return}
+ const r=$('workspace').getBoundingClientRect(),s=$('source').getBoundingClientRect(),inside=(r)=>ev.clientX>=r.left&&ev.clientX<=r.right&&ev.clientY>=r.top&&ev.clientY<=r.bottom;
+ if(inside(r)&&!extracted.has(a.e))animatePlace(a.e,true);
+ else if(inside(s)&&extracted.has(a.e))animatePlace(a.e,false);
+}
+function endPointer(ev){finishPointer(ev)}function cancelPointer(ev){finishPointer(ev,true)}
+$('buildBtn').addEventListener('click',applyInput);$('numberInput').addEventListener('keydown',e=>{if(e.key==='Enter')applyInput()});
+$('expandBtn').addEventListener('click',expandAll);
+$('valuesBtn').addEventListener('click',toggleValues);
+$('inspectCanvas').addEventListener('click',inspectDeeper);
+$('inspectCanvas').addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();inspectDeeper()}});
+$('inspectBack').addEventListener('click',()=>{if(inspectedPlace!==null&&inspectedPlace<inspectRoot){inspectedPlace++;drawInspector()}});
+$('inspectClose').addEventListener('click',closeInspector);
+$('inspector').addEventListener('close',()=>{inspectedPlace=null;inspectRoot=null;if(inspectReturnFocus?.isConnected)inspectReturnFocus.focus();inspectReturnFocus=null});
+$('inspector').addEventListener('click',ev=>{if(ev.target===$('inspector'))closeInspector()});
+$('resetBtn').addEventListener('click',()=>{closeInspector();stopFlights();extracted.clear();studentValues.clear();render()});
+let resizeQueued=false;window.addEventListener('resize',()=>{if(!resizeQueued){resizeQueued=true;requestAnimationFrame(()=>{resizeQueued=false;stopFlights();layoutSlots();reserveExpressionSpace();paintAll();if($('inspector').open)drawInspector()})}});
+window.__PlaceValueTest={getState:()=>({number,extracted:[...extracted].sort((a,b)=>b-a),pending:[...pending],terms:digits().filter(d=>extracted.has(d.e)&&d.digit>0).map(d=>d.digit*PLACES[d.e].value),valuesVisible,studentValues:Object.fromEntries(studentValues),inspectedPlace}),setNumber,extract:(e)=>commitPlace(e,true),toggle,expandAll,inspect,inspectDeeper,toggleValues,blockCells};
+render();
 })();
 </script>
-</body></html>
+</body>
+</html>
